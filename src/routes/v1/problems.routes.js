@@ -6,7 +6,7 @@ router.get("/ping", ProblemController.pingProblemController)
 
 router.get("/:id", ProblemController.getProblem)
 
-router.get("/", ProblemController.getProblems)
+router.get("/", ProblemController.getAllProblems)
 
 router.post("/", ProblemController.addProblem)
 

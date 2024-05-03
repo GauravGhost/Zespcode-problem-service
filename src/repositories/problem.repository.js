@@ -9,7 +9,16 @@ class ProblemRepository {
             return problem;
 
         } catch (error) {
-            throw new InternalServerError("Problem in Create the problem data")
+            throw error;
+        }
+    }
+
+    async getAllProblems(){
+        try {
+            const problems = await Problem.find();
+            return problems;
+        } catch (error) {
+            throw error;
         }
     }
 }
