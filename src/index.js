@@ -1,7 +1,8 @@
 const express = require('express')
 const { PORT } = require('./config/server.config');
 const { connectToDB } = require('./config/db.config');
-const apiRouter = require('./routes')
+const apiRouter = require('./routes');
+const errorHandler = require('./utils/error.handler');
 const app = express();
 
 // Middlewares
@@ -15,7 +16,8 @@ app.get("/ping", (req, res) => {
 
 app.use("/api", apiRouter)
 
-// app.use(errorHandler);
+
+app.use(errorHandler);
 
 app.listen(PORT, async () => {
     await connectToDB();
