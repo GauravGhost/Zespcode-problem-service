@@ -2,7 +2,7 @@ const express = require('express')
 const { PORT } = require('./config/server.config');
 const { connectToDB } = require('./config/db.config');
 const apiRouter = require('./routes');
-const errorHandler = require('./utils/error.handler');
+const errorHandler = require('./utils/errorHandler');
 const app = express();
 
 // Middlewares
