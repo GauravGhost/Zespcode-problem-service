@@ -8,11 +8,23 @@ function pingProblemController(req, res) {
     res.status(StatusCodes.OK).json({ message: "ping controller is up" })
 }
 
-function getProblem(req, res) {
-    res.status(StatusCodes.NOT_IMPLEMENTED).json({ message: "Not Implemented" })
+async function getProblem(req, res, next) {
+    try {
+        const response = await problemService.getProblem(req.params.id);
+        console.log(response);
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: "successfully Fetch the all problem data",
+            err: {},
+            data: response
+        })
+
+    } catch (error) {
+        next(error);
+    }
 }
 
-async function getAllProblems(req, res) {
+async function getAllProblems(req, res, next) {
     try {
         const response = await problemService.getAllProblems();
         console.log(response);
@@ -44,12 +56,12 @@ async function addProblem(req, res, next) {
     }
 }
 
-function updateProblem(req, res) {
+function updateProblem(req, res, next) {
 
     res.status(StatusCodes.NOT_IMPLEMENTED).json({ message: "Not Implemented" })
 }
 
-function deleteProblem(req, res) {
+function deleteProblem(req, res, next) {
 
     res.status(StatusCodes.NOT_IMPLEMENTED).json({ message: "Not Implemented" })
 }
