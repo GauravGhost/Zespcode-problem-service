@@ -9,7 +9,8 @@ class ProblemRepository {
             return problem;
 
         } catch (error) {
-            throw error;
+
+            throw new InternalServerError("Database Error while creating: " + error.message);
         }
     }
 
@@ -18,7 +19,7 @@ class ProblemRepository {
             const problems = await Problem.find();
             return problems;
         } catch (error) {
-            throw error;
+            throw new InternalServerError("Database Error while fetching: " + error.message);
         }
     }
 
@@ -27,7 +28,7 @@ class ProblemRepository {
             const problem = await Problem.findById(id);
             return problem;
         } catch (error) {
-            throw error;
+            throw new InternalServerError("Database Error while fetching: " + error.message);
         }
     }
 
@@ -36,7 +37,7 @@ class ProblemRepository {
             const newProblem = await Problem.findByIdAndUpdate(id, updatedData);
             return newProblem;
         } catch (error) {
-            throw error;
+            throw new InternalServerError("Database Error while updating: " + error.message);
         }
     }
     
@@ -45,7 +46,7 @@ class ProblemRepository {
             const problem = await Problem.findByIdAndDelete(id);
             return problem;
         } catch (error) {
-            throw error;
+            throw new InternalServerError("Database Error while deleting: " + error.message);
         }
     }
 }
