@@ -1,9 +1,9 @@
-const ProblemRepository = require('../repositories/problem.repository');
-const TagRepository = require('../repositories/tag.repository')
+const {ProblemListRepository, ProblemRepository} = require('../repositories');
 
 async function problemListSeeding() {
     const problemRepository = new ProblemRepository();
-    const tagRepository = new TagRepository();
+    const problemListRepository = new ProblemListRepository();
+
     const allProblems = await problemRepository.getAllProblemsForSeed();
     const filteredAllProblems = allProblems.map((problem) => {
         return {
@@ -14,10 +14,10 @@ async function problemListSeeding() {
         };
     });
     console.log(filteredAllProblems[0]);
-    // await problemRepository.deleteMany();
-    // console.log("All problem Deleted");
-    // await problemRepository.createManyProblem(modifiedProblemData);
-    // console.log("problem Data seeded to the database");
+    await problemListRepository.deleteMany();
+    console.log("All problem Deleted");
+    await problemListRepository.createManyProblemList(filteredAllProblems);
+    console.log("problem Data seeded to the database");
 }
 
 

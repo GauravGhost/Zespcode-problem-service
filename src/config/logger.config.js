@@ -33,12 +33,13 @@ allowedTransports.push(new winston.transports.File({
     level: "error",
     filename: path.join(__dirname, "..", 'logs', 'app.log')
 }))
-console.log(MONGODB_LOGGER_URL)
+
 // Configuration for storing the log in the database
 allowedTransports.push(new winston.transports.MongoDB({
     level: "error",
     db: MONGODB_LOGGER_URL,
     collection: 'logs',
+    options: {}
 }
 ))
 

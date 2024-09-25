@@ -35,7 +35,7 @@ class ProblemRepository {
         try {
             const problems = await Problem.find({}, 'alternateId title titleSlug tags')
                 .skip(skip)
-                .limit(limit)
+  
                 .sort({ alternateId: 'asc' })
                 .populate({
                     path: 'tags',
