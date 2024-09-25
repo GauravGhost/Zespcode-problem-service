@@ -1,15 +1,23 @@
 const mongoose = require('mongoose')
 
 const problemSchema = new mongoose.Schema({
+    alternateId: {
+        type: Number,
+        required: true,
+    },
     title: {
         type: String,
         required: [true, "Title Cannot be Empty"]
     },
-
+    titleSlug: {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
         required: [true, "Description cannot be Empty"]
     },
+    hints: [String],
 
     difficulty: {
         type: String,
@@ -26,7 +34,7 @@ const problemSchema = new mongoose.Schema({
             },
             output: {
                 type: String,
-                required: true
+                required: false
             }
         }
     ],
@@ -34,12 +42,16 @@ const problemSchema = new mongoose.Schema({
         {
             language: {
                 type: String,
-                enum: ["CPP", "JAVA", "PYTHON"],
+                enum: ["C++", "Java", "Python"],
                 required: true
+            },
+            languageSlug: {
+                type: String,
+                enum: ["cpp", "java", "python"]
             },
             startSnippet: {
                 type: String,
-                required: true
+                required: false
             },
             userSnippet: {
                 type: String,
@@ -47,15 +59,24 @@ const problemSchema = new mongoose.Schema({
             },
             endSnippet: {
                 type: String,
-                required: true
+                required: false
             }
         }
     ],
+    tags: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Tag'
+    }],
     editorial: {
         type: String,
+    },
+    isActive: {
+        type: Boolean,
+        default: false,
     }
 });
 
+problemSchema.index({ alternateId: 1 });
 
 const Problem = mongoose.model('Problem', problemSchema);
 

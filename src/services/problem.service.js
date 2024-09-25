@@ -16,8 +16,8 @@ class ProblemService {
         return problem;
     }
 
-    async getAllProblems() {
-        const problems = await this.problemRepository.getAllProblems();
+    async getAllProblems(skip, limit) {
+        const problems = await this.problemRepository.getAllProblems(skip, limit);
         return problems;
     }
 

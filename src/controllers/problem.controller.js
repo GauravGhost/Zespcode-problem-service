@@ -26,8 +26,7 @@ async function getProblem(req, res, next) {
 
 async function getAllProblems(req, res, next) {
     try {
-        const response = await problemService.getAllProblems();
-        console.log(response);
+        const response = await problemService.getAllProblems(req.query.skip, req.query.limit);
         res.status(StatusCodes.OK).json({
             success: true,
             message: "successfully Fetch the all problem data",
@@ -43,7 +42,6 @@ async function getAllProblems(req, res, next) {
 async function addProblem(req, res, next) {
     try {
         const response = await problemService.createProblem(req.body);
-        console.log(response);
         res.status(StatusCodes.CREATED).json({
             success: true,
             message: "successfully create a new problem",
@@ -56,9 +54,18 @@ async function addProblem(req, res, next) {
     }
 }
 
-function updateProblem(req, res, next) {
-
-    res.status(StatusCodes.NOT_IMPLEMENTED).json({ message: "Not Implemented" })
+async function updateProblem(req, res, next) {
+    try {
+        const response = await problemService.updateProblem(id, req.body);
+        res.status(StatusCodes.CREATED).json({
+            success: true,
+            message: "successfully Updated the problem",
+            err: {},
+            data: response
+        })
+    } catch (error) {
+        next(error);
+    }
 }
 
 function deleteProblem(req, res, next) {
