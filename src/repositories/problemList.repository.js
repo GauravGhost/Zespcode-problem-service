@@ -24,7 +24,7 @@ class ProblemListRepository {
 
     async getAllProblemLists(skip = 0, limit = 100) {
         try {
-            const problemLists = await ProblemList.find().skip(skip).sort({ alternateId: 'asc' });
+            const problemLists = await ProblemList.find().skip(skip).limit(limit).sort({ alternateId: 'asc' });
             return problemLists;
         } catch (error) {
             throw new InternalServerError("Database Error while fetching: " + error.message);

@@ -21,23 +21,28 @@ class ProblemService {
         return problems;
     }
 
-    async getProblem(id){
-        const problem = await this.problemRepository.getProblem(id);
-        if(!problem){
-            logger.error(`Problem with id: ${id} not found in the db`)
-            throw new NotFound("Problem", id);
+    async getProblem(query) {
+        let problem = null;
+        if (query.id) {
+            problem = await this.problemRepository.getProblem(query.id);
+        } else {
+            problem = await this.problemRepository.getProblemByFilter(query);
+        }
+        if (!problem) {
+            logger.error(`Problem not found in the db`);
+            throw new NotFound("Problem", query);
         }
         return problem;
     }
 
-    async updateProblem(id, updatedData){
+    async updateProblem(id, updatedData) {
         const updatedProblem = await this.problemRepository.updateProblem(id, updatedData);
         return updatedProblem;
     }
 
-    async deleteProblem(id){
+    async deleteProblem(id) {
         const problem = await this.problemRepository.getProblem(id);
-        if(!problem){
+        if (!problem) {
             logger.error(`Problem with id: ${id} not found in the db`)
             throw new NotFound("Problem", id);
         }

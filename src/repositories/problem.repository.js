@@ -35,7 +35,7 @@ class ProblemRepository {
         try {
             const problems = await Problem.find({}, 'alternateId title titleSlug tags')
                 .skip(skip)
-  
+
                 .sort({ alternateId: 'asc' })
                 .populate({
                     path: 'tags',
@@ -51,6 +51,15 @@ class ProblemRepository {
     async getProblem(id) {
         try {
             const problem = await Problem.findById(id).populate({ path: 'tags', select: { 'name': 1, 'slug': 1 } });
+            return problem;
+        } catch (error) {
+            throw new InternalServerError("Database Error while fetching: " + error.message);
+        }
+    }
+
+    async getProblemByFilter(query) {
+        try {
+            const problem = await Problem.findOne(query).populate({ path: 'tags', select: { 'name': 1, 'slug': 1 } });
             return problem;
         } catch (error) {
             throw new InternalServerError("Database Error while fetching: " + error.message);
