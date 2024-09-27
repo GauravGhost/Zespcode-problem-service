@@ -18,6 +18,10 @@ const problemListSchema = new mongoose.Schema({
     titleSlug: {
         type: String,
         required: true
+    },
+    isActive: {
+        type: Boolean,
+        default: false
     }
 });
 

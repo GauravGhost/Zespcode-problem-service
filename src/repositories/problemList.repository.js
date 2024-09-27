@@ -24,7 +24,7 @@ class ProblemListRepository {
 
     async getAllProblemLists(skip = 0, limit = 100) {
         try {
-            const problemLists = await ProblemList.find().skip(skip).limit(limit).sort({ alternateId: 'asc' });
+            const problemLists = await ProblemList.find().skip(skip).limit(limit).sort({ isActive: -1, problemId: 'asc' });
             return problemLists;
         } catch (error) {
             throw new InternalServerError("Database Error while fetching: " + error.message);
@@ -44,6 +44,15 @@ class ProblemListRepository {
         try {
             const newProblemList = await ProblemList.findByIdAndUpdate(id, updatedData);
             return newProblemList;
+        } catch (error) {
+            throw new InternalServerError("Database Error while updating: " + error.message);
+        }
+    }
+
+    async updateMany(updatedData) {
+        try {
+            const response = await ProblemList.updateMany(updatedData);
+            return response;
         } catch (error) {
             throw new InternalServerError("Database Error while updating: " + error.message);
         }

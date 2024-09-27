@@ -11,7 +11,6 @@ function pingProblemController(req, res) {
 async function getProblem(req, res, next) {
     try {
         const response = await problemService.getProblem(req.query);
-        console.log(response);
         res.status(StatusCodes.OK).json({
             success: true,
             message: "successfully Fetch the all problem data",
