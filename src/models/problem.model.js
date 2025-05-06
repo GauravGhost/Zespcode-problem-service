@@ -19,6 +19,14 @@ const problemSchema = new mongoose.Schema({
     },
     hints: [String],
 
+    timeLimit: {
+        type: Number,
+        default: 1000
+    },
+    memoryLimit: {
+        type: Number,
+        default: 256
+    },
     difficulty: {
         type: String,
         enum: ["easy", "medium", "hard"],
@@ -33,8 +41,18 @@ const problemSchema = new mongoose.Schema({
                 required: true
             },
             output: {
-                type: String,
+                type: mongoose.Schema.Types.Mixed,
                 required: false
+            },
+            languageOutputs: {
+                cpp: String,
+                java: String,
+                python: String
+            },
+            outputType: {
+                type: String,
+                enum: ["string", "number", "boolean", "array", "object"],
+                default: "string"
             }
         }
     ],
